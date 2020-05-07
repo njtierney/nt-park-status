@@ -22,6 +22,11 @@ library(here)
 loadd(park_status)
 ```
 
+```{r breaks}
+park_status
+```
+
+
 ```{r prop-open}
 prop_open <- park_status %>%
     pull(access) %>%
