@@ -7,7 +7,7 @@ the_plan <-
     write_park_date = write_nt_park_data(park_data),
     # so the idea is that it will write data every day, and then produce
     # a report that tells me how open the parks are
-    # park_status = nt_park_status(park_data),
+    park_status = read_all_parks(),
     target_name = target(
       command = {
         rmarkdown::render(knitr_in("doc/park_status.Rmd"))

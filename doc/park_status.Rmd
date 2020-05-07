@@ -16,18 +16,10 @@ library(fs)
 library(here)
 ```
 
-```{r combine-data}
-park_status <- dir_map(here::here("data/"), 
-                          fun = read_csv,
-                          type = "file") %>% 
-  bind_rows()
-```
-
-
 ## Analysis
 
 ```{r print-data}
-park_status
+loadd(park_status)
 ```
 
 ```{r prop-open}
