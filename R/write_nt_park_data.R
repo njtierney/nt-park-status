@@ -13,7 +13,13 @@ write_nt_park_data <- function(park_data) {
 
   write_path <- glue::glue("data/{day_today}-nt-park-status.csv")
 
-  readr::write_csv(x = park_data,
-                   path = here::here(write_path))
+  if (file.exists(write_path)) {
+    usethis::ui_done("File {basename(write_path)} already exists")
+  }
+
+  if (!file.exists(write_path)) {
+    readr::write_csv(x = park_data, path = here::here(write_path))
+    usethis::ui_done("File {basename(write_path)} saved")
+  }
 
 }

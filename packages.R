@@ -21,3 +21,6 @@ library(purrr)
 library(rvest)
 library(tibble)
 library(glue)
+
+conflicted::conflict_prefer("pull", "dplyr")
+conflicted::conflict_prefer("filter", "dplyr")

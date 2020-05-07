@@ -12,30 +12,33 @@ knitr::opts_chunk$set(echo = FALSE)
 ```{r pkgs}
 library(tidyverse)
 library(drake)
+library(fs)
+library(here)
 ```
 
-```{r}
-parks_data <- fs::dir_map(here::here("data/"), fun = readr::read_csv)
+```{r combine-data}
+park_status <- dir_map(here::here("data/"), 
+                          fun = read_csv,
+                          type = "file") %>% 
+  bind_rows()
 ```
 
 
 ## Analysis
 
-```{r}
-parks_data
+```{r print-data}
+park_status
 ```
 
-How open are the parks?
-
-```{r}
-park_data %>%
+```{r prop-open}
+prop_open <- park_status %>%
     pull(access) %>%
     str_to_lower() %>%
     str_detect("open") %>%
     mean()
 ```
 
-
+Approximately `r prop_open` of parks in the nortern territory are open.
 
 ## Reproducibility
 
