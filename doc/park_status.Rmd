@@ -1,0 +1,51 @@
+---
+title: "Untitled Draft"
+author: "Report Author"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r pkgs}
+library(tidyverse)
+library(drake)
+```
+
+```{r}
+parks_data <- fs::dir_map(here::here("data/"), fun = readr::read_csv)
+```
+
+
+## Analysis
+
+```{r}
+parks_data
+```
+
+How open are the parks?
+
+```{r}
+park_data %>%
+    pull(access) %>%
+    str_to_lower() %>%
+    str_detect("open") %>%
+    mean()
+```
+
+
+
+## Reproducibility
+
+```{r}
+## datetime
+Sys.time() 
+
+## repository
+git2r::repository()
+
+## session info
+sessionInfo()
+```
