@@ -2,14 +2,20 @@ the_plan <-
   drake_plan(
     # I want to run these next two steps based on whether the latest day has
     # passed
-    park_data = scrape_nt_park(),
+    park_data = target(
+      command = scrape_nt_park(),
+      trigger = trigger(change = is_file_updated())
+    ),
     write_park_date = target(
       command = write_nt_park_data(park_data),
-      trigger = trigger(condition = is_file_updated())
+      trigger = trigger(change = is_file_updated())
     ),
     # so the idea is that it will write data every day, and then produce
     # a report that tells me how open the parks are
-    park_status = read_all_parks(),
+    park_status = target(
+      command = read_all_parks(),
+      trigger = trigger(change = is_file_updated())
+    ),
     target_name = target(
       command = {
         rmarkdown::render(knitr_in("doc/park_status.Rmd"))

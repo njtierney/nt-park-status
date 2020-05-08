@@ -23,7 +23,7 @@ loadd(park_status)
 ```
 
 ```{r breaks}
-park_status
+unique(park_status$date)
 ```
 
 
@@ -36,6 +36,15 @@ prop_open <- park_status %>%
 ```
 
 Approximately `r prop_open` of parks in the nortern territory are open.
+
+```{r create-openness-table}
+park_status %>% 
+  mutate(is_open = detect_open(access)) %>% 
+  group_by(date) %>% 
+  summarise(prop_open = mean(is_open)) %>% 
+  knitr::kable()
+```
+
 
 ## Reproducibility
 

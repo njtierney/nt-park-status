@@ -5,7 +5,8 @@
 read_all_parks <- function() {
 
   fs::dir_map(here::here("data/"),
-              fun = readr::read_csv) %>%
-    dplyr::bind_rows()
+              fun = read_csv) %>%
+    bind_rows() %>%
+    as_tibble()
 
 }
