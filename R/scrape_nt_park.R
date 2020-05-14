@@ -7,9 +7,9 @@
 ##' @return data.frame of NT parks
 ##' @author Nicholas Tierney
 ##' @export
-scrape_nt_park <- function() {
+scrape_nt_park <- function(url) {
 
-  nt_parks_url <- "https://nt.gov.au/leisure/parks-reserves/plan-your-visit/check-park-open-alice-springs"
+  nt_parks_url <- url
 
   nt_parks_data <- polite::bow(nt_parks_url) %>% polite::scrape()
 
