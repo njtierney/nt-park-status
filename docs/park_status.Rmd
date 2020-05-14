@@ -19,29 +19,22 @@ library(here)
 ## Analysis
 
 ```{r print-data}
-loadd(park_status)
+loadd(park_data)
 ```
 
 ```{r breaks}
-unique(park_status$date)
+unique(park_data$date)
 ```
 
 
-```{r prop-open}
-prop_open <- park_status %>%
-    pull(access) %>%
-    str_to_lower() %>%
-    str_detect("open") %>%
-    mean()
-```
-
-Approximately `r prop_open` of parks in the nortern territory are open.
+Approximately `r nt_park_status(park_data)` of parks in the nortern territory are open.
 
 ```{r create-openness-table}
-park_status %>% 
+park_data %>% 
   mutate(is_open = detect_open(access)) %>% 
   group_by(date) %>% 
-  summarise(prop_open = mean(is_open)) %>% 
+  summarise(prop_open = mean(is_open),
+            n_open = sum(is_open)) %>% 
   knitr::kable()
 ```
 
