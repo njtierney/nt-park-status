@@ -1,7 +1,7 @@
 ---
-title: "Untitled Draft"
-author: "Report Author"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+title: "How Open are the NT Parks?"
+author: "Nicholas Tierney"
+date: "Compiled at `r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
 
@@ -16,30 +16,31 @@ library(fs)
 library(here)
 ```
 
-## Analysis
-
 ```{r print-data}
 loadd(park_data)
 ```
 
 ```{r breaks}
-unique(park_data$date)
+# unique(park_data$date)
 ```
 
 
-Approximately `r nt_park_status(park_data)` of parks in the nortern territory are open.
+Approximately `r round(nt_park_status(park_data), 2)` of parks in the nortern territory are open.
 
 ```{r create-openness-table}
 park_data %>% 
   mutate(is_open = detect_open(access)) %>% 
   group_by(date) %>% 
   summarise(prop_open = mean(is_open),
-            n_open = sum(is_open)) %>% 
+            n_open = sum(is_open),
+            n_closed = sum(!is_open)) %>% 
   knitr::kable()
 ```
 
 
 ## Reproducibility
+
+<details>
 
 ```{r}
 ## datetime
@@ -51,3 +52,5 @@ git2r::repository()
 ## session info
 sessionInfo()
 ```
+
+</details>
