@@ -40,7 +40,7 @@ rsconnect/
 .drake_history
 
 # html
-*.html
+park_status.html
 
 # renv via capsule
 renv/

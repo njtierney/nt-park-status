@@ -5,8 +5,9 @@ the_plan <- drake_plan(
       ),
       report = target(
         command = {
-          rmarkdown::render(knitr_in("docs/park_status.Rmd"))
-          file_out("docs/park_status.html")
+          rmarkdown::render(input = knitr_in("docs/park_status.Rmd"),
+                            output_file = "index.html")
+          file_out("docs/index.html")
           }
         )
       )
