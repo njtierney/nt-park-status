@@ -1,7 +1,8 @@
+library(tidyverse)
+library(drake)
+
 history <- drake_history(analyze = TRUE)
 
-library(dplyr)
-library(purrr)
 
 history_park_data <- history %>%
   filter(target == "park_data")
@@ -14,7 +15,13 @@ builds <- history_park_data %>%
 
 cache <- drake_cache()
 
+nt_history_parks <-
 map_dfr(hash,
         cache$get_value,
         .id = "build") %>%
   arrange(desc(build))
+
+nt_history_parks %>%
+  mutate(open = detect_open(comments)) %>%
+  group_by(date) %>%
+  summarise(n_open = sum(open))
